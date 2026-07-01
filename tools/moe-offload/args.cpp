@@ -49,5 +49,6 @@ bool moe_offload_params_parse(int * argc, char ** argv, moe_offload_params & par
             // skip unknowns as they may be common params
         }
     }
+    params.common.verbosity = 4;  // LOG_LEVEL_TRACE
     return common_params_parse(*argc, argv, params.common, LLAMA_EXAMPLE_SERVER);
 }
