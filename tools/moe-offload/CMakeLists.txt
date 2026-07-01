@@ -1,8 +1,11 @@
 set(TARGET moe-offload)
-add_executable(${TARGET} main.cpp)
+add_executable(${TARGET}
+        main.cpp
+        args.cpp
+        args.h)
 target_link_libraries(${TARGET} PRIVATE ggml llama-common)
 target_compile_features(${TARGET} PRIVATE cxx_std_17)
 
-if(LLAMA_TOOLS_INSTALL)
+if (LLAMA_TOOLS_INSTALL)
     install(TARGETS ${TARGET} RUNTIME)
-endif()
+endif ()
