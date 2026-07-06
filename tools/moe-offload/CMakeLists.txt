@@ -4,7 +4,9 @@ add_executable(${TARGET}
         args.cpp
         args.h
         server.cpp
-        server.h)
+        server.h
+        model.cpp
+        model.h)
 target_link_libraries(${TARGET} PRIVATE ggml llama-common)
 target_compile_features(${TARGET} PRIVATE cxx_std_17)
 
