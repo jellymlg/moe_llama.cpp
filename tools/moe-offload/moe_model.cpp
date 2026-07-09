@@ -1,34 +1,12 @@
-#include "model.h"
-
+#include "moe_model.h"
 #include "log.h"
-
-moe_model_loder::moe_model_loder(const std::string & fname, const llama_model_params & params) :
-    llama_model_loader(nullptr,
-                       nullptr,
-                       nullptr,
-                       fname,
-                       splits,
-                       nullptr,
-                       params.use_mmap,
-                       params.use_direct_io,
-                       params.check_tensors,
-                       params.no_alloc,
-                       params.kv_overrides,
-                       params.tensor_buft_overrides) {}
-
-bool moe_model_loder::load_all_data(ggml_context *          ctx,
-                                    llama_buf_map &         bufs,
-                                    llama_mlocks *          lmlocks,
-                                    llama_progress_callback progress_callback,
-                                    void *                  progress_callback_user_data) {
-    common_log_add(common_log_main(), GGML_LOG_LEVEL_INFO, "moe_model_loder::load_all_data\n");
-    return true;
-}
 
 moe_model::moe_model(const llama_model_params & params) : llama_model_base(params) {}
 
 bool moe_model::load_tensors(moe_model_loder & ml) {
+    this->ml = &ml;
     common_log_add(common_log_main(), GGML_LOG_LEVEL_INFO, "moe_model::load_tensors\n");
+    load_arch_tensors(ml);
     ggml_context * ctx;
     llama_buf_map  buf_map;
     llama_mlocks   mlock_mmaps;
@@ -37,7 +15,7 @@ bool moe_model::load_tensors(moe_model_loder & ml) {
     return true;
 }
 
-moe_model * create_moe_model(const std::string & file, const llama_model_params & params) {
+moe_model * moe_model::create_moe_model(const std::string & file, const llama_model_params & params) {
     moe_model_loder ml(file, params);
     //ml.print_info();
     auto            model = static_cast<moe_model *>(llama_model_create(ml, params));

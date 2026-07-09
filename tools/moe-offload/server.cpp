@@ -40,7 +40,7 @@ void server::load_model() {
     //}
     //params.common.no_alloc        = true;
     const llama_model_params mp   = common_model_params_to_llama(params.common);
-    model                         = create_moe_model(params.common.model.path.c_str(), mp);
+    model                         = moe_model::create_moe_model(params.common.model.path.c_str(), mp);
     const llama_context_params cp = common_context_params_to_llama(params.common);
     //ctx                         = llama_init_from_model(model, cp);
 }

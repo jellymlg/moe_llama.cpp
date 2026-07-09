@@ -2,7 +2,7 @@
 
 #include "args.h"
 #include "cpp-httplib/httplib.h"
-#include "model.h"
+#include "moe_model.h"
 
 class server {
     httplib::Server    svr;

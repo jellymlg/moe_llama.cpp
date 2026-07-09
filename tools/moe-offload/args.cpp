@@ -39,7 +39,7 @@ bool moe_offload_params_parse(int * argc, char ** argv, moe_offload_params & par
             }
             params.expert_buffer_size_ram_gb = std::stoi(argv[i]);
             shift_args(argc, argv, i - 1, i + 1);
-        } else if (arg == "-ms" || arg == "--display-model-stats") {
+        } else if (arg == "-dms" || arg == "--display-model-stats") {
             params.print_model_stats = true;
             shift_args(argc, argv, i, i + 1);
         } else if (arg == "-h" || arg == "--help") {
